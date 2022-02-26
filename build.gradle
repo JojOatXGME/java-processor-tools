@@ -1,0 +1,30 @@
+allprojects {
+    group 'dev.johanness'
+    version '1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
+    pluginManager.withPlugin('java') {
+        java {
+            sourceCompatibility = JavaVersion.VERSION_11
+            withSourcesJar()
+        }
+        dependencies {
+            constraints {
+                implementation 'com.google.testing.compile:compile-testing:0.19'
+                implementation 'org.jetbrains:annotations:23.0.0'
+                implementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+                implementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+            }
+        }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+    tasks.withType(Javadoc) {
+        options.encoding = 'UTF-8'
+    }
+}

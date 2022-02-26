@@ -1,0 +1,4 @@
+rootProject.name = 'java-processor-tools'
+
+include 'lib'
+include 'processor'
