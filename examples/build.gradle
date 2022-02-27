@@ -1,0 +1,17 @@
+plugins {
+    id 'application'
+    id 'project-report'
+}
+
+application {
+    mainClass = 'dev.johanness.processor.examples.Main'
+}
+
+dependencies {
+    annotationProcessor project(':processor')
+    implementation project(':lib')
+}
+
+test {
+    useJUnitPlatform()
+}
