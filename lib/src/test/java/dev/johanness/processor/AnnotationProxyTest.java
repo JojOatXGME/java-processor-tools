@@ -13,7 +13,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public final class AnnotationProxyTest {
+final class AnnotationProxyTest {
   @Test
   void testReadValue() {
     // TODO: 27.02.2022 Test AnnotationProxy.readValue(...)

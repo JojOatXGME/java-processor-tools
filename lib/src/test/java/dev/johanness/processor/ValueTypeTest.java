@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class ValueTypeTest {
+final class ValueTypeTest {
 
   private static final AnnotationTypeMock ANNOTATION_TYPE_1 = new AnnotationTypeMock(TopLevelAnnotation.class);
   private static final AnnotationTypeMock ANNOTATION_TYPE_2 = new AnnotationTypeMock(TopLevelAnnotation.NestedAnnotation.class);
