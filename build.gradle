@@ -11,6 +11,21 @@ allprojects {
             sourceCompatibility = JavaVersion.VERSION_11
             withSourcesJar()
         }
+        test {
+            useJUnitPlatform()
+        }
+        task testJava11(type: Test) {
+            description = 'Runs the test suite on Java 11.'
+            group = 'verification'
+            useJUnitPlatform()
+            shouldRunAfter(test)
+            javaLauncher = javaToolchains.launcherFor {
+                languageVersion = JavaLanguageVersion.of(11)
+            }
+        }
+        check {
+            dependsOn testJava11
+        }
         dependencies {
             constraints {
                 implementation 'com.google.testing.compile:compile-testing:0.19'

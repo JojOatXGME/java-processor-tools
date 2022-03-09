@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Map;
 
 public final class SafeValue {
@@ -21,6 +22,12 @@ public final class SafeValue {
 
   public static @Nullable Object safeReturn(@NotNull Method method) {
     return safeValue(method.getReturnType());
+  }
+
+  public static @Nullable Object @NotNull [] safeArguments(@NotNull Method method) {
+    return Arrays.stream(method.getParameterTypes())
+        .map(SafeValue::safeValue)
+        .toArray();
   }
 
   private static @Nullable Object safeValue(@NotNull Class<?> type) {

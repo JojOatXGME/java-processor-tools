@@ -2,25 +2,32 @@ package dev.johanness.processor.test.mock.type;
 
 import org.jetbrains.annotations.NotNull;
 
-import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.TypeVisitor;
-import java.lang.annotation.*;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public final class DeclaredTypeMock implements DeclaredType {
+public final class DeclaredTypeMock extends AbstractTypeMock<DeclaredTypeMock> implements DeclaredType {
   // TODO: Implement!
+  private final @NotNull TypeElement element;
 
   public DeclaredTypeMock(@NotNull Type type) {
+    super(DeclaredTypeMock.class);
+    throw new UnsupportedOperationException("Not implemented");
+  }
+
+  public DeclaredTypeMock(@NotNull TypeElement type) {
+    super(DeclaredTypeMock.class);
+    this.element = type;
   }
 
   @Override
   public Element asElement() {
-    return null;
+    return element;
   }
 
   @Override
@@ -35,26 +42,16 @@ public final class DeclaredTypeMock implements DeclaredType {
 
   @Override
   public TypeKind getKind() {
-    return null;
+    return TypeKind.DECLARED;
   }
 
   @Override
   public <R, P> R accept(TypeVisitor<R, P> v, P p) {
-    return null;
+    return v.visitDeclared(thisAs(DeclaredType.class), p);
   }
 
   @Override
-  public List<? extends AnnotationMirror> getAnnotationMirrors() {
-    return null;
-  }
-
-  @Override
-  public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
-    return null;
-  }
-
-  @Override
-  public <A extends Annotation> A[] getAnnotationsByType(Class<A> annotationType) {
-    return null;
+  public String toString() {
+    return element.getQualifiedName().toString();
   }
 }

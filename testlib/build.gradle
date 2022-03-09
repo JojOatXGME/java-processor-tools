@@ -1,17 +1,13 @@
 plugins {
     id 'java-library'
-    id 'project-report'
 }
 
 dependencies {
+    api project(':lib')
     compileOnly 'org.jetbrains:annotations'
     testCompileOnly 'org.jetbrains:annotations'
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testImplementation 'org.junit.jupiter:junit-jupiter-params'
     testImplementation 'org.mockito:mockito-inline'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-}
-
-test {
-    useJUnitPlatform()
 }

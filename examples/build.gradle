@@ -1,6 +1,5 @@
 plugins {
     id 'application'
-    id 'project-report'
 }
 
 application {
@@ -10,8 +9,4 @@ application {
 dependencies {
     annotationProcessor project(':processor')
     implementation project(':lib')
-}
-
-test {
-    useJUnitPlatform()
 }

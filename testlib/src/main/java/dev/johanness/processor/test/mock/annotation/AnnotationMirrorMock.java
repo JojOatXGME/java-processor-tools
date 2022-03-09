@@ -2,6 +2,7 @@ package dev.johanness.processor.test.mock.annotation;
 
 import dev.johanness.processor.test._internal.AnnotationValueMap;
 import dev.johanness.processor.test._internal.SafeValue;
+import dev.johanness.processor.test.mock.element.TypeElementMock;
 import dev.johanness.processor.test.mock.type.DeclaredTypeMock;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -72,7 +73,7 @@ public final class AnnotationMirrorMock<A extends Annotation> implements Annotat
       assert this.clazz == null;
       AnnotationMirrorMock<T> thiz = (AnnotationMirrorMock<T>) this;
       thiz.clazz = type;
-      thiz.type = new DeclaredTypeMock(type);
+      thiz.type = new DeclaredTypeMock(new TypeElementMock(type));
       thiz.values = new AnnotationValueMap(this.type);
       return thiz;
     }
@@ -198,7 +199,7 @@ public final class AnnotationMirrorMock<A extends Annotation> implements Annotat
   @Override
   public String toString() {
     if (type == null) {
-      throw new IllegalStateException("{uninitialized AnnotationMirrorMock}");
+      return "{uninitialized AnnotationMirrorMock}";
     }
     else {
       assert values != null;

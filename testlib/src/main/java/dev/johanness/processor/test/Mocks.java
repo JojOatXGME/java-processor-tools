@@ -1,14 +1,21 @@
 package dev.johanness.processor.test;
 
+import dev.johanness.processor.test.mock._common.NameMock;
 import dev.johanness.processor.test.mock.annotation.AnnotationMirrorMock;
 import dev.johanness.processor.test.mock.annotation.AnnotationValueMock;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import javax.lang.model.element.Name;
 import java.lang.annotation.*;
 
 public final class Mocks {
   private Mocks() {} // Cannot be instantiated
+
+  @Contract(value = "_ -> new", pure = true)
+  public static @NotNull Name name(@NotNull CharSequence value) {
+    return new NameMock(value.toString());
+  }
 
   @Contract(value = "_ -> new", pure = true)
   public static @NotNull AnnotationValueMock value(@NotNull Object value) {
