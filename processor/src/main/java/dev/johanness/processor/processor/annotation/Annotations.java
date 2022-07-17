@@ -15,7 +15,7 @@ public final class Annotations {
   private static final class Type<P> extends AnnotationType<P> {
     private final @NotNull Function<AnnotationMirror, P> proxyFactory;
 
-    public Type(@NotNull Class<? extends Annotation> clazz, @NotNull Function<AnnotationMirror, P> proxyFactory) {
+    private Type(@NotNull Class<? extends Annotation> clazz, @NotNull Function<AnnotationMirror, P> proxyFactory) {
       super(clazz);
       this.proxyFactory = proxyFactory;
     }

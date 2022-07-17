@@ -20,13 +20,17 @@ public abstract class AnnotationProxy {
     this.mirror = mirror;
   }
 
+  public final @NotNull AnnotationMirror javaAnnotationMirror() {
+    return mirror;
+  }
+
   @Override
-  public String toString() {
+  public final String toString() {
     return mirror.toString();
   }
 
   @Override
-  public boolean equals(Object o) {
+  public final boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AnnotationProxy that = (AnnotationProxy) o;
@@ -34,7 +38,7 @@ public abstract class AnnotationProxy {
   }
 
   @Override
-  public int hashCode() {
+  public final int hashCode() {
     return Objects.hash(mirror);
   }
 

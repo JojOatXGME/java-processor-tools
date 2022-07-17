@@ -25,8 +25,8 @@ public abstract class AnnotationType<P> {
   /**
    * Initializes the instance from the class instance of an annotation.
    *
-   * @param clazz the class instance from an annotation as obtained by {@code
-   *              MyAnnotation.class}.
+   * @param clazz the class instance from an annotation as obtained by
+   *              {@code MyAnnotation.class}.
    */
   protected AnnotationType(@NotNull Class<? extends Annotation> clazz) {
     this(clazz.getName(), clazz.getModule().getName());
@@ -88,8 +88,8 @@ public abstract class AnnotationType<P> {
 
   /**
    * Returns a unique name of the annotation interface, including the module
-   * name. Specifically, this method returns the name as defined by {@link
-   * Processor#getSupportedAnnotationTypes()}.
+   * name. Specifically, this method returns the name as defined by
+   * {@link Processor#getSupportedAnnotationTypes()}.
    *
    * @return the canonical name of the annotation interface prefixed with the
    * module name.
@@ -134,7 +134,7 @@ public abstract class AnnotationType<P> {
 
   @Override
   public final String toString() {
-    return nameWithModule();
+    return "AnnotationType{'" + nameWithModule + "'}";
   }
 
   @ApiStatus.OverrideOnly

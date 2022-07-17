@@ -3,4 +3,5 @@ module dev.johanness.processor {
   requires static org.jetbrains.annotations;
   exports dev.johanness.processor;
   exports dev.johanness.processor.annotation;
+  exports dev.johanness.processor.segmented;
 }

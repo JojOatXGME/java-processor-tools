@@ -5,6 +5,7 @@ plugins {
 dependencies {
     compileOnly 'org.jetbrains:annotations'
     implementation project(':lib')
+    implementation 'com.squareup:javapoet'
 
     testCompileOnly 'org.jetbrains:annotations'
     testImplementation 'com.google.testing.compile:compile-testing'
