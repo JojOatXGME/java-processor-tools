@@ -45,6 +45,24 @@ final class AnnotationTypeTest {
     assertEquals(moduleName, type.moduleName());
   }
 
+  @ParameterizedTest
+  @NullSource
+  @ValueSource(strings = "org.example.module")
+  void testNameWithModule(@Nullable String moduleName) {
+    AnnotationType<Proxy> type = new SimpleAnnotationType("org.example.TopLevelClass$NestedAnnotation", moduleName);
+    if (moduleName == null) {
+      assertEquals("org.example.TopLevelClass.NestedAnnotation", type.nameWithModule());
+    }
+    else {
+      assertEquals(moduleName + "/org.example.TopLevelClass.NestedAnnotation", type.nameWithModule());
+    }
+  }
+
+  @Test
+  void testMatches() {
+    // TODO: Test this method. Don't forget cases where one of both modules is null
+  }
+
   @Test
   void testProxy() {
     AnnotationMirror mirror = mock(AnnotationMirror.class);

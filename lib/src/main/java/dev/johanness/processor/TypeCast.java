@@ -29,7 +29,7 @@ public final class TypeCast {
     return as(INTERSECTION_VISITOR, type);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable IntersectionType toIntersectionType(@Nullable TypeMirror type) {
     return to(INTERSECTION_VISITOR, type);
   }
@@ -39,7 +39,7 @@ public final class TypeCast {
     return as(UNION_VISITOR, type);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable UnionType toUnionType(@Nullable TypeMirror type) {
     return to(UNION_VISITOR, type);
   }
@@ -49,7 +49,7 @@ public final class TypeCast {
     return as(EXECUTABLE_VISITOR, type);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable ExecutableType toExecutableType(@Nullable TypeMirror type) {
     return to(EXECUTABLE_VISITOR, type);
   }
@@ -59,7 +59,7 @@ public final class TypeCast {
     return as(NOTYPE_VISITOR, type);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable NoType toNoType(@Nullable TypeMirror type) {
     return to(NOTYPE_VISITOR, type);
   }
@@ -69,7 +69,7 @@ public final class TypeCast {
     return as(PRIMITIVE_VISITOR, type);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable PrimitiveType toPrimitiveType(@Nullable TypeMirror type) {
     return to(PRIMITIVE_VISITOR, type);
   }
@@ -79,7 +79,7 @@ public final class TypeCast {
     return as(WILDCARD_VISITOR, type);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable WildcardType toWildcardType(@Nullable TypeMirror type) {
     return to(WILDCARD_VISITOR, type);
   }
@@ -89,7 +89,7 @@ public final class TypeCast {
     return as(REFERENCE_VISITOR, type);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable ReferenceType toReferenceType(@Nullable TypeMirror type) {
     return to(REFERENCE_VISITOR, type);
   }
@@ -99,7 +99,7 @@ public final class TypeCast {
     return as(ARRAY_VISITOR, type);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable ArrayType toArrayType(@Nullable TypeMirror type) {
     return to(ARRAY_VISITOR, type);
   }
@@ -109,7 +109,7 @@ public final class TypeCast {
     return as(NULL_VISITOR, type);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable NullType toNullType(@Nullable TypeMirror type) {
     return to(NULL_VISITOR, type);
   }
@@ -119,7 +119,7 @@ public final class TypeCast {
     return as(DECLARED_VISITOR, type);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable DeclaredType toDeclaredType(@Nullable TypeMirror type) {
     return to(DECLARED_VISITOR, type);
   }
@@ -129,7 +129,7 @@ public final class TypeCast {
     return as(TYPE_VARIABLE_VISITOR, type);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable TypeVariable toTypeVariable(@Nullable TypeMirror type) {
     return to(TYPE_VARIABLE_VISITOR, type);
   }

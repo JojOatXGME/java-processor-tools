@@ -26,7 +26,7 @@ public final class ElementCast {
     return as(MODULE_VISITOR, element);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable ModuleElement toModuleElement(@Nullable Element element) {
     return to(MODULE_VISITOR, element);
   }
@@ -36,7 +36,7 @@ public final class ElementCast {
     return as(PACKAGE_VISITOR, element);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable PackageElement toPackageElement(@Nullable Element element) {
     return to(PACKAGE_VISITOR, element);
   }
@@ -46,7 +46,7 @@ public final class ElementCast {
     return as(TYPE_VISITOR, element);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable TypeElement toTypeElement(@Nullable Element element) {
     return to(TYPE_VISITOR, element);
   }
@@ -56,7 +56,7 @@ public final class ElementCast {
     return as(RecordComponentElementVisitor.INSTANCE, element);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable RecordComponentElement toRecordComponentElement(@Nullable Element element) {
     return to(RecordComponentElementVisitor.INSTANCE, element);
   }
@@ -66,7 +66,7 @@ public final class ElementCast {
     return as(EXECUTABLE_VISITOR, element);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable ExecutableElement toExecutableElement(@Nullable Element element) {
     return to(EXECUTABLE_VISITOR, element);
   }
@@ -76,7 +76,7 @@ public final class ElementCast {
     return as(VARIABLE_VISITOR, element);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable VariableElement toVariableElement(@Nullable Element element) {
     return to(VARIABLE_VISITOR, element);
   }
@@ -86,7 +86,7 @@ public final class ElementCast {
     return as(TYPE_PARAMETER_VISITOR, element);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable TypeParameterElement toTypeParameterElement(@Nullable Element element) {
     return to(TYPE_PARAMETER_VISITOR, element);
   }
@@ -96,7 +96,7 @@ public final class ElementCast {
     return as(NAMEABLE_VISITOR, element);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable QualifiedNameable toQualifiedNameable(@Nullable Element element) {
     return to(NAMEABLE_VISITOR, element);
   }
@@ -106,7 +106,7 @@ public final class ElementCast {
     return as(PARAMETERIZABLE_VISITOR, element);
   }
 
-  @Contract("_ -> param1")
+  @Contract("null -> null; !null -> param1")
   public static @Nullable Parameterizable toParameterizable(@Nullable Element element) {
     return to(PARAMETERIZABLE_VISITOR, element);
   }

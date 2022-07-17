@@ -7,11 +7,14 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.processing.Processor;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.Name;
+import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.util.SimpleElementVisitor9;
 import java.lang.annotation.*;
+import java.util.Objects;
+
+import static dev.johanness.processor.ElementCast.toTypeElement;
 
 public abstract class AnnotationType<P> {
   private final @NotNull String binaryName;
@@ -96,6 +99,24 @@ public abstract class AnnotationType<P> {
   }
 
   /**
+   * Checks whether the given type matches this annotation type. This method is
+   * intended to be used on the return value of
+   * {@link AnnotationMirror#getAnnotationType()}.
+   *
+   * @param type The type which shall be matched against this instance.
+   * @return whether the type matches this instance.
+   */
+  public final boolean matches(@NotNull DeclaredType type) {
+    TypeElement element = toTypeElement(type.asElement());
+    if (element.getQualifiedName().contentEquals(canonicalName)) {
+      ModuleElement module = moduleOf(element);
+      String expectedModuleName = Objects.requireNonNullElse(moduleName, "");
+      return module == null || module.getQualifiedName().contentEquals(expectedModuleName);
+    }
+    return false;
+  }
+
+  /**
    * Constructs a proxy for the given annotation mirror. The proxy can be used
    * to access values specified on the annotation.
    *
@@ -103,7 +124,7 @@ public abstract class AnnotationType<P> {
    * @return the proxy for accessing the annotation.
    */
   public final @NotNull P proxy(@NotNull AnnotationMirror mirror) {
-    if (!getCanonicalName(mirror.getAnnotationType()).contentEquals(canonicalName)) {
+    if (!matches(mirror.getAnnotationType())) {
       throw new IllegalArgumentException(String.format(
           "Annotation mirror does not belong to %s: %s",
           binaryName, mirror));
@@ -112,23 +133,29 @@ public abstract class AnnotationType<P> {
   }
 
   @Override
-  public String toString() {
+  public final String toString() {
     return nameWithModule();
   }
 
   @ApiStatus.OverrideOnly
   protected abstract @NotNull P createProxy(@NotNull AnnotationMirror mirror);
 
-  private static @NotNull Name getCanonicalName(@NotNull DeclaredType type) {
-    return type.asElement().accept(new SimpleElementVisitor9<>() {
+  private static @Nullable ModuleElement moduleOf(@NotNull Element element) {
+    return element.accept(new SimpleElementVisitor9<>(null) {
       @Override
-      public Name visitType(TypeElement e, Object ignore) {
-        return e.getQualifiedName();
+      public ModuleElement visitModule(ModuleElement e, Object o) {
+        return e;
       }
 
       @Override
-      protected Name defaultAction(Element e, Object o) {
-        throw new IllegalStateException("Illegal annotation type: " + e);
+      protected ModuleElement defaultAction(Element e, Object o) {
+        Element enclosingElement = e.getEnclosingElement();
+        return enclosingElement == null ? null : visit(enclosingElement);
+      }
+
+      @Override
+      public ModuleElement visitUnknown(Element e, Object o) {
+        return defaultAction(e, o);
       }
     }, null);
   }

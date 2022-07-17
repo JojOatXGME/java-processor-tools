@@ -8,9 +8,10 @@ import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.util.SimpleElementVisitor9;
 import java.util.Objects;
+
+import static dev.johanness.processor.ElementCast.toExecutableElement;
+import static dev.johanness.processor.ElementCast.toTypeElement;
 
 public abstract class AnnotationProxy {
   protected final @NotNull AnnotationMirror mirror;
@@ -37,7 +38,27 @@ public abstract class AnnotationProxy {
     return Objects.hash(mirror);
   }
 
-  protected final <T> T readValue(@Nullable T cached, @NotNull String name, @NotNull ValueType<T> type) {
+  /**
+   * Reads a value from this annotation. The following code snipped shows the
+   * intended usage.
+   * <pre>
+   *   public @NotNull String value() {
+   *     cachedValue = readValue(cachedValue, "value", ValueType.string());
+   *     return cachedValue;
+   *   }
+   * </pre>
+   * If no value is provided by the annotation, the default from the
+   * corresponding {@link ExecutableElement} of the annotation method is used.
+   *
+   * @param cached cached value which will be returned if not {@code null},
+   *               otherwise this argument is ignored.
+   * @param name   the name of the annotation method.
+   * @param type   the expected value type.
+   * @param <T>    type which is returned by this method.
+   * @return the value from the annotation, or the default if no value is
+   * provided.
+   */
+  protected final <T> @NotNull T readValue(@Nullable T cached, @NotNull String name, @NotNull ValueType<T> type) {
     return cached != null ? cached : type.convert(readValue(name));
   }
 
@@ -54,11 +75,11 @@ public abstract class AnnotationProxy {
     for (Element member : annotationType.getEnclosedElements()) {
       if (member.getKind() == ElementKind.METHOD &&
           member.getSimpleName().contentEquals(name)) {
-        AnnotationValue value = asExecutableElement(member).getDefaultValue();
+        AnnotationValue value = toExecutableElement(member).getDefaultValue();
         if (value == null) {
           throw new IllegalStateException(String.format(
               "Unset annotation value without default: %s.%s()",
-              asTypeElement(annotationType).getQualifiedName(),
+              toTypeElement(annotationType).getQualifiedName(),
               member.getSimpleName()));
         }
         return value;
@@ -66,34 +87,6 @@ public abstract class AnnotationProxy {
     }
     throw new IllegalArgumentException(String.format(
         "%s() not defined on @%s",
-        name, asTypeElement(annotationType).getQualifiedName()));
-  }
-
-  private static @NotNull TypeElement asTypeElement(@NotNull Element element) {
-    return element.accept(new SimpleElementVisitor9<>() {
-      @Override
-      public TypeElement visitType(TypeElement e, Object ignore) {
-        return e;
-      }
-
-      @Override
-      protected TypeElement defaultAction(Element e, Object ignore) {
-        throw new IllegalArgumentException("Not a TypeElement: " + e);
-      }
-    }, null);
-  }
-
-  private static @NotNull ExecutableElement asExecutableElement(@NotNull Element element) {
-    return element.accept(new SimpleElementVisitor9<>() {
-      @Override
-      public ExecutableElement visitExecutable(ExecutableElement e, Object ignore) {
-        return e;
-      }
-
-      @Override
-      protected ExecutableElement defaultAction(Element e, Object ignore) {
-        throw new IllegalArgumentException("Not an ExecutableElement: " + e);
-      }
-    }, null);
+        name, toTypeElement(annotationType).getQualifiedName()));
   }
 }
